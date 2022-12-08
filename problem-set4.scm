@@ -36,14 +36,14 @@
 
 (define nil '())
 
-(define (id x) x)
-
 (define (flatten ls)
-  (let* ((head   (car ls))
-         (tail   (cdr ls))
-         (headop (if (pair? head) flatten list))
-         (tailop (if (null? tail) id      flatten)))
-    (append (headop head) (tailop tail))))
+  (define (flatten-aux xs acc)
+    (let* ((head    (car xs))
+           (tail    (cdr xs))
+           (combine (if (pair? head) flatten-aux cons))
+           (newacc  (if (null? tail) acc         (flatten-aux tail acc))))
+      (combine head newacc)))
+  (flatten-aux ls nil))
 
 ; Problem 5: tree-map
 
