@@ -12,6 +12,11 @@
       (car ls)
       (last (cdr ls))))
 
+(define (iterative-process n args next)
+  (last (repeat next
+                n
+                args)))
+
 ; Problem 3 - Rewrite procedure f using iterative-process
 
 (define (f n)
